@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
+  direction: rtl; /* عشان ترتيب الكروت يبدأ من اليمين للشمال صح */
 }
 
 .results__card {
@@ -9,17 +10,34 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
 }
 
+/* التعديل هنا: شيلنا الـ grid والـ 1fr 1fr عشان بقت صورة واحدة مدمجة */
 .results__images {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: block; 
+  width: 100%;
 }
 
+/* التعديل هنا: ظبطنا أبعاد الحاوية */
 .results__img-wrap {
   position: relative;
   background: #eee;
-  min-height: 200px;
+  height: 240px; /* إعطاء ارتفاع ثابت ومناسب للصورة المدمجة */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* إضافة تنسيق للصورة نفسها عشان تفرش كامل المساحة وبدون قص */
+.results__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* السحر كله هنا: بيخلي الصورة كاملة تبان وميقصش الأطراف */
+  display: block;
 }
 
 .results__label {
@@ -43,6 +61,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 14px 16px;
+  border-top: 1px solid #f5f5f5; /* يفصل النص عن الصورة بشكل نظيف */
 }
 
 .results__info strong {
@@ -54,6 +73,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 32px;
+  direction: rtl; /* لترتيب الفيديوهات أيضاً */
 }
 
 .videos__card {

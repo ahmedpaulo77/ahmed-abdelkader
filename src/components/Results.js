@@ -1,14 +1,16 @@
+import React from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import './Results.css';
 
+// مصفوفة البيانات بالمسارات الجديدة للصور المدمجة
 const beforeAfter = [
-  { id: 1, before: process.env.PUBLIC_URL + '/images/before1.jpg', after: process.env.PUBLIC_URL + '/images/after1.jpg', kg: '18 كيلو', months: '4 شهور' },
-  { id: 2, before: process.env.PUBLIC_URL + '/images/before2.jpg', after: process.env.PUBLIC_URL + '/images/after2.jpg', kg: '12 كيلو', months: '3 شهور' },
-  { id: 3, before: process.env.PUBLIC_URL + '/images/before3.jpg', after: process.env.PUBLIC_URL + '/images/after3.jpg', kg: '22 كيلو', months: '5 شهور' },
-  { id: 4, before: process.env.PUBLIC_URL + '/images/before4.jpg', after: process.env.PUBLIC_URL + '/images/after4.jpg', kg: '15 كيلو', months: '4 شهور' },
+  { id: 1, image: process.env.PUBLIC_URL + '/images/1.jpg', kg: '18 كيلو', months: '4 شهور' },
+  { id: 2, image: process.env.PUBLIC_URL + '/images/2.jpg', kg: '12 كيلو', months: '3 شهور' },
+  { id: 3, image: process.env.PUBLIC_URL + '/images/3.jpg', kg: '22 كيلو', months: '5 شهور' },
+  { id: 4, image: process.env.PUBLIC_URL + '/images/4.jpg', kg: '15 كيلو', months: '4 شهور' },
 ];
 
-// ← ضع رابط يوتيوب بعد كده — استبدل YOUTUBE_ID_1 و YOUTUBE_ID_2
+// معرفات فيديوهات اليوتيوب
 const videos = [
   { id: 'YOUTUBE_ID_1', title: 'د. أحمد مجدي — نصائح التخسيس الصحي' },
   { id: 'YOUTUBE_ID_2', title: 'د. أحمد مجدي — العلاج الطبيعي والتأهيل' },
@@ -34,21 +36,13 @@ function Results() {
               <div key={item.id} className="results__card">
                 <div className="results__images">
                   <div className="results__img-wrap">
-                    <span className="results__label">قبل</span>
                     <img
-                      src={item.before}
-                      alt="قبل"
-                      onError={(e) => { e.target.parentElement.style.background = '#f0f0f0'; e.target.style.display = 'none'; }}
-                      style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-                    />
-                  </div>
-                  <div className="results__img-wrap">
-                    <span className="results__label results__label--after">بعد</span>
-                    <img
-                      src={item.after}
-                      alt="بعد"
-                      onError={(e) => { e.target.parentElement.style.background = '#f0f0f0'; e.target.style.display = 'none'; }}
-                      style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                      src={item.image}
+                      alt={`نتيجة حالة رقم ${item.id}`}
+                      onError={(e) => { 
+                        e.target.parentElement.style.background = '#f0f0f0'; 
+                        e.target.style.display = 'none'; 
+                      }}
                     />
                   </div>
                 </div>
