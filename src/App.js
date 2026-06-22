@@ -1,5 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import { HashRouter, Routes, Route } from 'react-router-dom';import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
 import About from './components/About';
@@ -25,7 +24,7 @@ function HomePage() {
 
 function App() {
   return (
-    <BrowserRouter>
+<HashRouter>
       <div className="app">
         <Navbar />
         <main>
@@ -42,7 +41,7 @@ function App() {
         <Footer />
         <WhatsAppButton />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
