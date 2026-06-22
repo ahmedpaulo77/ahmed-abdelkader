@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 const navLinks = [
-  { href: '#home', label: 'الرئيسية' },
-  { href: '#about', label: 'عن العيادة' },
-  { href: '#services', label: 'خدماتنا' },
-  { href: '#branches', label: 'فروعنا' },
-  { href: '#bmi', label: 'حاسبة BMI' },
-  { href: '#booking', label: 'احجز موعد' },
+  { href: '/', label: 'الرئيسية' },
+  { href: '/about', label: 'عن العيادة' },
+  { href: '/services', label: 'خدماتنا' },
+  { href: '/branches', label: 'فروعنا' },
+  { href: '/bmi', label: 'حاسبة BMI' },
+  { href: '/booking', label: 'احجز موعد' },
 ];
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -20,32 +22,39 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleLinkClick = () => setMenuOpen(false);
+  useEffect(() => {
+    setMenuOpen(false);
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="container navbar__inner">
-        <a href="#home" className="navbar__logo">
+        <Link to="/" className="navbar__logo">
           <span className="navbar__logo-icon">H</span>
           <div className="navbar__logo-text">
             <span className="navbar__logo-name">Hayah Clinic</span>
             <span className="navbar__logo-sub">Dr. Ahmed Magdy</span>
           </div>
-        </a>
+        </Link>
 
         <ul className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
           {navLinks.map((link) => (
             <li key={link.href}>
-              <a href={link.href} onClick={handleLinkClick}>
+              <Link
+                to={link.href}
+                className={location.pathname === link.href ? 'active' : ''}
+                onClick={() => setMenuOpen(false)}
+              >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
 
-        <a href="#booking" className="btn btn-gold navbar__cta">
+        <Link to="/booking" className="btn btn-gold navbar__cta">
           احجز الآن
-        </a>
+        </Link>
 
         <button
           className={`navbar__burger ${menuOpen ? 'navbar__burger--open' : ''}`}

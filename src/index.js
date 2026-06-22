@@ -3,6 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// src/index.js
+import { LanguageProvider } from './contexts/LanguageContext';
+
+root.render(
+  <LanguageProvider>
+    <App />
+  </LanguageProvider>
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
