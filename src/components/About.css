@@ -1,0 +1,136 @@
+.about {
+  background: var(--color-white);
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.about__image {
+  position: relative;
+}
+
+.about__image-frame {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 3px solid rgba(201, 168, 76, 0.3);
+}
+
+.about__image-placeholder {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  aspect-ratio: 4/5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+}
+
+.about__image-placeholder span {
+  font-size: 5rem;
+  margin-bottom: 16px;
+}
+
+.about__image-placeholder p {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-gold-light);
+}
+
+.about__experience-badge {
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  background: var(--color-gold);
+  color: var(--color-primary-dark);
+  padding: 20px 28px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.about__experience-badge strong {
+  display: block;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.about__experience-badge span {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.about__title {
+  text-align: right;
+}
+
+.about__text {
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.about__features {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: var(--color-cream);
+  border-radius: var(--radius-md);
+  transition: transform var(--transition);
+}
+
+.about__feature:hover {
+  transform: translateX(-4px);
+}
+
+.about__feature-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.about__feature h4 {
+  font-size: 1rem;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+}
+
+.about__feature p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 992px) {
+  .about__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about__image {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .about__title {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .about__experience-badge {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -16px;
+  }
+}
