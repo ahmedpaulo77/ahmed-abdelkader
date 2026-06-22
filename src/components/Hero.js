@@ -1,5 +1,6 @@
 import { messages, waLink } from '../utils/whatsapp';
 import './Hero.css';
+import clinicImg from '../images/1.jpg';
 
 function Hero() {
   return (
@@ -55,25 +56,17 @@ function Hero() {
         </div>
 
         <div className="hero__visual">
-          <div className="hero__card hero__card--main">
-            <div className="hero__card-icon">🏥</div>
-            <h3>مركز طبي متكامل</h3>
-            <p>أحدث الأجهزة والبروتوكولات العلاجية</p>
-          </div>
-          <div className="hero__card hero__card--float1">
-            <span>⚖️</span>
-            <div>
-              <strong>تخسيس</strong>
-              <small>برامج مخصصة</small>
-            </div>
-          </div>
-          <div className="hero__card hero__card--float2">
-            <span>💪</span>
-            <div>
-              <strong>علاج طبيعي</strong>
-              <small>تأهيل شامل</small>
-            </div>
-          </div>
+          <img
+            src={clinicImg}
+            alt="Hayah Clinic"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              borderRadius: '20px',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+            }}
+          />
         </div>
       </div>
     </section>

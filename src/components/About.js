@@ -1,5 +1,6 @@
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import './About.css';
+import doctorImg from '../images/2.jpg';
 
 function About() {
   const ref = useScrollReveal();
@@ -10,10 +11,16 @@ function About() {
         <div ref={ref} className="about__grid fade-in">
           <div className="about__image">
             <div className="about__image-frame">
-              <div className="about__image-placeholder">
-                <span>👨‍⚕️</span>
-                <p>د. أحمد مجدي</p>
-              </div>
+              <img
+                src={doctorImg}
+                alt="د. أحمد مجدي"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  borderRadius: '16px',
+                }}
+              />
             </div>
             <div className="about__experience-badge">
               <strong>+15</strong>
