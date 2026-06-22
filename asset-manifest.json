@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ahmed-abdelkader/static/css/main.5ac31f4b.css",
+    "main.js": "/ahmed-abdelkader/static/js/main.912f166a.js",
+    "static/js/453.4cafc269.chunk.js": "/ahmed-abdelkader/static/js/453.4cafc269.chunk.js",
+    "index.html": "/ahmed-abdelkader/index.html",
+    "main.5ac31f4b.css.map": "/ahmed-abdelkader/static/css/main.5ac31f4b.css.map",
+    "main.912f166a.js.map": "/ahmed-abdelkader/static/js/main.912f166a.js.map",
+    "453.4cafc269.chunk.js.map": "/ahmed-abdelkader/static/js/453.4cafc269.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5ac31f4b.css",
+    "static/js/main.912f166a.js"
+  ]
+}
