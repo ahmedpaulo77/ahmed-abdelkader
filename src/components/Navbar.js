@@ -6,11 +6,11 @@ const navLinks = [
   { href: '/', label: 'الرئيسية' },
   { href: '/about', label: 'عن العيادة' },
   { href: '/services', label: 'خدماتنا' },
+  { href: '/results', label: 'قبل وبعد' },
   { href: '/branches', label: 'فروعنا' },
   { href: '/bmi', label: 'حاسبة BMI' },
   { href: '/booking', label: 'احجز موعد' },
 ];
-
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);

@@ -1,13 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
 import Stats from './components/Stats';
+import About from './components/About';
 import Services from './components/Services';
 import Branches from './components/Branches';
 import Testimonials from './components/Testimonials';
 import BMI from './components/BMI';
 import Booking from './components/Booking';
+import Results from './components/Results';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import './App.css';
@@ -35,6 +36,7 @@ function App() {
             <Route path="/branches" element={<Branches />} />
             <Route path="/bmi" element={<BMI />} />
             <Route path="/booking" element={<Booking />} />
+            <Route path="/results" element={<Results />} />
           </Routes>
         </main>
         <Footer />
