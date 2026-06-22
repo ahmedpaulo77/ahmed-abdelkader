@@ -2,10 +2,10 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 import './Results.css';
 
 const beforeAfter = [
-  { id: 1, before: '/images/before1.jpg', after: '/images/after1.jpg', kg: '18 كيلو', months: '4 شهور' },
-  { id: 2, before: '/images/before2.jpg', after: '/images/after2.jpg', kg: '12 كيلو', months: '3 شهور' },
-  { id: 3, before: '/images/before3.jpg', after: '/images/after3.jpg', kg: '22 كيلو', months: '5 شهور' },
-  { id: 4, before: '/images/before4.jpg', after: '/images/after4.jpg', kg: '15 كيلو', months: '4 شهور' },
+  { id: 1, before: process.env.PUBLIC_URL + '/images/before1.jpg', after: process.env.PUBLIC_URL + '/images/after1.jpg', kg: '18 كيلو', months: '4 شهور' },
+  { id: 2, before: process.env.PUBLIC_URL + '/images/before2.jpg', after: process.env.PUBLIC_URL + '/images/after2.jpg', kg: '12 كيلو', months: '3 شهور' },
+  { id: 3, before: process.env.PUBLIC_URL + '/images/before3.jpg', after: process.env.PUBLIC_URL + '/images/after3.jpg', kg: '22 كيلو', months: '5 شهور' },
+  { id: 4, before: process.env.PUBLIC_URL + '/images/before4.jpg', after: process.env.PUBLIC_URL + '/images/after4.jpg', kg: '15 كيلو', months: '4 شهور' },
 ];
 
 // ← ضع رابط يوتيوب بعد كده — استبدل YOUTUBE_ID_1 و YOUTUBE_ID_2

@@ -2,10 +2,12 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 import { messages, waLink } from '../utils/whatsapp';
 import './Services.css';
 
+const PUB = process.env.PUBLIC_URL;
+
 const services = [
   {
     id: 'diet',
-    img: '/images/s1.jpg',
+    img: PUB + '/images/s1.jpg',
     icon: '⚖️',
     title: 'برامج التخسيس والتغذية العلاجية',
     desc: 'خطط غذائية علمية مخصصة مع متابعة دورية لتحقيق وزن مثالي صحي.',
@@ -13,7 +15,7 @@ const services = [
   },
   {
     id: 'physio',
-    img: '/images/s2.jpg',
+    img: PUB + '/images/s2.jpg',
     icon: '💪',
     title: 'العلاج الطبيعي والتأهيل',
     desc: 'جلسات علاج طبيعي متخصصة للتأهيل بعد الإصابات والعمليات الجراحية.',
@@ -21,7 +23,7 @@ const services = [
   },
   {
     id: 'obesity',
-    img: '/images/s3.jpg',
+    img: PUB + '/images/s3.jpg',
     icon: '🎯',
     title: 'علاج السمنة والوزن الزائد',
     desc: 'برامج متكاملة لعلاج السمنة باستخدام أحدث البروتوكولات الطبية.',
@@ -29,7 +31,7 @@ const services = [
   },
   {
     id: 'lpg',
-    img: '/images/s4.jpg',
+    img: PUB + '/images/s4.jpg',
     icon: '✨',
     title: 'جلسات LPG / تكسير الدهون',
     desc: 'تقنية LPG المتقدمة لتكسير الدهون ونحت الجسم بدون جراحة.',
@@ -37,7 +39,7 @@ const services = [
   },
   {
     id: 'back',
-    img: '/images/s5.jpg',
+    img: PUB + '/images/s5.jpg',
     icon: '🦴',
     title: 'علاج آلام الظهر والرقبة',
     desc: 'علاج متخصص لآلام العمود الفقري والرقبة بأحدث التقنيات.',
@@ -45,7 +47,7 @@ const services = [
   },
   {
     id: 'rehab',
-    img: '/images/s6.jpg',
+    img: PUB + '/images/s6.jpg',
     icon: '🏃',
     title: 'التأهيل بعد الإصابات',
     desc: 'برامج تأهيل شاملة للعودة للحياة الطبيعية بعد الإصابات.',
@@ -53,7 +55,7 @@ const services = [
   },
   {
     id: 'joints',
-    img: '/images/s7.jpg',
+    img: PUB + '/images/s7.jpg',
     icon: '🦵',
     title: 'علاج خشونة المفاصل',
     desc: 'علاج فعّال لخشونة المفاصل وتخفيف الألم وتحسين الحركة.',
@@ -61,7 +63,7 @@ const services = [
   },
   {
     id: 'nutrition',
-    img: '/images/s8.jpg',
+    img: PUB + '/images/s8.jpg',
     icon: '🥗',
     title: 'استشارات تغذية ومتابعة',
     desc: 'استشارات غذائية دورية مع خطط متابعة شخصية لكل مريض.',
@@ -69,7 +71,7 @@ const services = [
   },
   {
     id: 'pregnancy',
-    img: '/images/s9.jpg',
+    img: PUB + '/images/s9.jpg',
     icon: '🤰',
     title: 'برامج ما قبل وبعد الولادة',
     desc: 'برامج متخصصة للحفاظ على وزن صحي قبل وبعد الولادة.',
