@@ -91,7 +91,7 @@
   width: 100%;
 }
 
-/* تنسيق حاوية الأزرار التفاعلية الجديدة لضمان ثباتها */
+/* حاوية الأزرار التفاعلية */
 .navbar__actions {
   display: flex;
   align-items: center;
@@ -100,6 +100,7 @@
 
 .navbar__zoom-btn {
   transition: transform 0.2s ease, background-color 0.2s ease;
+  white-space: nowrap;
 }
 
 .navbar__zoom-btn:hover {
@@ -113,39 +114,36 @@
   white-space: nowrap;
 }
 
-/* ==========================================================================
-   تعديل وتأمين زرار الهمبرجر (البرجر) للموبايل
-   ========================================================================== */
+/* زرار الهمبرجر */
 .navbar__burger {
   display: none;
   flex-direction: column;
   justify-content: center;
-  gap: 6px;
-  width: 32px;
-  height: 32px;
+  gap: 5px;
+  width: 30px;
+  height: 30px;
   padding: 0;
   background: transparent !important;
   border: none !important;
   cursor: pointer;
-  z-index: 10005 !important; /* ضمان بقائه فوق أي قائمة أو سكشن بالكامل */
+  z-index: 10005 !important;
 }
 
 .navbar__burger span {
   display: block;
   width: 100%;
   height: 3px;
-  background-color: #0d4a3e !important; /* زيتي صريح وثابت لبراند العيادة */
+  background-color: #0d4a3e !important; /* لون زيتي صريح */
   border-radius: 4px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ضبط إحداثيات الدوران والأنيميشن بدون ترحيل عشوائي */
 .navbar__burger--open span {
-  background-color: #c9a84c !important; /* يقلب ذهبي صريح عند الفتح */
+  background-color: #c9a84c !important;
 }
 
 .navbar__burger--open span:nth-child(1) {
-  transform: translateY(9px) rotate(45deg) !important;
+  transform: translateY(8px) rotate(45deg) !important;
 }
 
 .navbar__burger--open span:nth-child(2) {
@@ -154,13 +152,13 @@
 }
 
 .navbar__burger--open span:nth-child(3) {
-  transform: translateY(-9px) rotate(-45deg) !important;
+  transform: translateY(-8px) rotate(-45deg) !important;
 }
 
-/* شاشات التابلت والموبايل */
+/* الشاشات المتوسطة والتابلت */
 @media (max-width: 992px) {
   .navbar__burger {
-    display: flex !important; /* إجبار الزرار على الظهور */
+    display: flex !important;
   }
 
   .navbar__links {
@@ -187,41 +185,53 @@
     font-size: 1.1rem;
     width: 100%;
     padding: 8px 0;
-    color: #0d4a3e; /* نضمن قراءة النصوص بالزيتي داخل المنيو الشفافة */
+    color: #0d4a3e;
   }
 
+  /* إخفاء زرار الحجز الأصلي خارج الـ actions */
   .navbar__inner > .navbar__cta {
     display: none;
   }
 }
 
-/* شاشات الموبايل الصغيرة جداً لضبط مساحات الأزرار فوق */
+/* ==========================================================================
+   حل مشكلة الموبايل الحقيقي وضيق المساحة (أقل من 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* إخفاء زرار احجز الآن الذهبي من الهيدر في الموبايل لمنع التكديس */
+  .navbar__actions .navbar__cta {
+    display: none !important;
+  }
+
+  /* ترتيب العناصر المتبقية (اللوجو، زووم، الهمبرجر) في سطر واحد بدون ما ينزلوا تحت */
+  .navbar__inner {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+}
+
 @media (max-width: 576px) {
   .navbar {
-    padding: 12px 0;
+    padding: 10px 0;
   }
   
   .navbar__logo-sub {
     display: none;
   }
 
-  .navbar__inner {
-    gap: 12px;
-  }
-
   .navbar__zoom-btn {
-    padding: 6px 10px !important;
+    padding: 6px 12px !important;
     font-size: 0.8rem !important;
-  }
-
-  .navbar__actions .navbar__cta {
-    padding: 8px 16px;
-    font-size: 0.8rem;
   }
 }
 
 @media (max-width: 400px) {
+  /* إخفاء كلمة "زووم" والاكتفاء بالأيقونة في الشاشات الضيقة جداً جداً */
   .navbar__zoom-btn span {
-    display: none;
+    display: none !important;
   }
 }
