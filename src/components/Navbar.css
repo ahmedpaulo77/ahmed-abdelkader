@@ -103,7 +103,7 @@
 }
 
 .navbar__zoom-btn:hover {
-  background-color: #1a73e8 !important; /* تفاعل أغمق عند التحويم */
+  background-color: #1a73e8 !important;
   transform: translateY(-2px);
 }
 
@@ -113,57 +113,70 @@
   white-space: nowrap;
 }
 
-/* زرار البرجر الافتراضي */
+/* ==========================================================================
+   تعديل وتأمين زرار الهمبرجر (البرجر) للموبايل
+   ========================================================================== */
 .navbar__burger {
   display: none;
   flex-direction: column;
-  gap: 5px;
-  width: 28px;
-  padding: 4px 0;
-  background: transparent;
-  border: none;
+  justify-content: center;
+  gap: 6px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent !important;
+  border: none !important;
   cursor: pointer;
-  z-index: 1001; /* للتأكد من وجوده فوق القائمة عند فتحها */
+  z-index: 10005 !important; /* ضمان بقائه فوق أي قائمة أو سكشن بالكامل */
 }
 
 .navbar__burger span {
   display: block;
-  height: 2px;
-  background: var(--color-primary); /* لونه زيتي كلاسيك مطابق لبراند العيادة */
-  border-radius: 2px;
-  transition: all 0.3s ease;
+  width: 100%;
+  height: 3px;
+  background-color: #0d4a3e !important; /* زيتي صريح وثابت لبراند العيادة */
+  border-radius: 4px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* تعديل الأنيميشن عند فتح القائمة ليناسب الإحداثيات الجديدة لـ flex */
+/* ضبط إحداثيات الدوران والأنيميشن بدون ترحيل عشوائي */
+.navbar__burger--open span {
+  background-color: #c9a84c !important; /* يقلب ذهبي صريح عند الفتح */
+}
+
 .navbar__burger--open span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-  background: var(--color-gold); /* يقلب ذهبي عند الفتح عشان ينطق فوق الأبيض */
+  transform: translateY(9px) rotate(45deg) !important;
 }
 
 .navbar__burger--open span:nth-child(2) {
-  opacity: 0;
+  opacity: 0 !important;
+  transform: translateX(-10px) !important;
 }
 
 .navbar__burger--open span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-  background: var(--color-gold);
+  transform: translateY(-9px) rotate(-45deg) !important;
 }
 
 /* شاشات التابلت والموبايل */
 @media (max-width: 992px) {
+  .navbar__burger {
+    display: flex !important; /* إجبار الزرار على الظهور */
+  }
+
   .navbar__links {
     position: fixed;
     top: 0;
     right: -100%;
     width: 280px;
     height: 100vh;
-    background: var(--color-white);
+    background: var(--color-white, #ffffff);
     flex-direction: column;
     align-items: flex-start;
     padding: 100px 32px 32px;
     gap: 24px;
-    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.1);
-    transition: right 0.4s ease;
+    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.15);
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10000;
   }
 
   .navbar__links--open {
@@ -174,15 +187,11 @@
     font-size: 1.1rem;
     width: 100%;
     padding: 8px 0;
+    color: #0d4a3e; /* نضمن قراءة النصوص بالزيتي داخل المنيو الشفافة */
   }
 
-  /* إخفاء زرار الحجز العادي فقط في الموبايل والاعتماد على الكونتينر العلوي وزر زووم */
   .navbar__inner > .navbar__cta {
     display: none;
-  }
-
-  .navbar__burger {
-    display: flex;
   }
 }
 
@@ -200,7 +209,6 @@
     gap: 12px;
   }
 
-  /* تصغير بسيط لحجم الأزرار في الموبايل عشان المساحة تكفي جنب اللوجو */
   .navbar__zoom-btn {
     padding: 6px 10px !important;
     font-size: 0.8rem !important;
@@ -213,7 +221,6 @@
 }
 
 @media (max-width: 400px) {
-  /* إخفاء نص كلمة زووم في الموبايلات الضيقة جداً عشان المنيو متبوظش والاكتفاء بالأيقونة والكاميرا */
   .navbar__zoom-btn span {
     display: none;
   }
