@@ -91,30 +91,53 @@
   width: 100%;
 }
 
+/* تنسيق حاوية الأزرار التفاعلية الجديدة لضمان ثباتها */
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar__zoom-btn {
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.navbar__zoom-btn:hover {
+  background-color: #1a73e8 !important; /* تفاعل أغمق عند التحويم */
+  transform: translateY(-2px);
+}
+
 .navbar__cta {
   padding: 10px 24px;
   font-size: 0.9rem;
   white-space: nowrap;
 }
 
+/* زرار البرجر الافتراضي */
 .navbar__burger {
   display: none;
   flex-direction: column;
   gap: 5px;
   width: 28px;
   padding: 4px 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1001; /* للتأكد من وجوده فوق القائمة عند فتحها */
 }
 
 .navbar__burger span {
   display: block;
   height: 2px;
-  background: var(--color-primary);
+  background: var(--color-primary); /* لونه زيتي كلاسيك مطابق لبراند العيادة */
   border-radius: 2px;
   transition: all 0.3s ease;
 }
 
+/* تعديل الأنيميشن عند فتح القائمة ليناسب الإحداثيات الجديدة لـ flex */
 .navbar__burger--open span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
+  background: var(--color-gold); /* يقلب ذهبي عند الفتح عشان ينطق فوق الأبيض */
 }
 
 .navbar__burger--open span:nth-child(2) {
@@ -123,8 +146,10 @@
 
 .navbar__burger--open span:nth-child(3) {
   transform: rotate(-45deg) translate(5px, -5px);
+  background: var(--color-gold);
 }
 
+/* شاشات التابلت والموبايل */
 @media (max-width: 992px) {
   .navbar__links {
     position: fixed;
@@ -147,9 +172,12 @@
 
   .navbar__links a {
     font-size: 1.1rem;
+    width: 100%;
+    padding: 8px 0;
   }
 
-  .navbar__cta {
+  /* إخفاء زرار الحجز العادي فقط في الموبايل والاعتماد على الكونتينر العلوي وزر زووم */
+  .navbar__inner > .navbar__cta {
     display: none;
   }
 
@@ -158,8 +186,35 @@
   }
 }
 
-@media (max-width: 480px) {
+/* شاشات الموبايل الصغيرة جداً لضبط مساحات الأزرار فوق */
+@media (max-width: 576px) {
+  .navbar {
+    padding: 12px 0;
+  }
+  
   .navbar__logo-sub {
+    display: none;
+  }
+
+  .navbar__inner {
+    gap: 12px;
+  }
+
+  /* تصغير بسيط لحجم الأزرار في الموبايل عشان المساحة تكفي جنب اللوجو */
+  .navbar__zoom-btn {
+    padding: 6px 10px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .navbar__actions .navbar__cta {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 400px) {
+  /* إخفاء نص كلمة زووم في الموبايلات الضيقة جداً عشان المنيو متبوظش والاكتفاء بالأيقونة والكاميرا */
+  .navbar__zoom-btn span {
     display: none;
   }
 }

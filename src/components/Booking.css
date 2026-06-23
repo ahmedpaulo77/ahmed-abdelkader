@@ -2,14 +2,56 @@
   background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-white) 100%);
 }
 
+/* التعديل الجديد: شبكة العرض الرئيسية لتقسيم الحجز والخريطة جنب بعض */
+.booking__main-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 30px;
+  align-items: start;
+  margin-top: 40px;
+  direction: rtl;
+}
+
+/* تعديل صندوق الحجز ليتناسب مع التقسيم الجديد */
 .booking__wrapper {
-  max-width: 700px;
-  margin: 0 auto;
   background: var(--color-white);
   border-radius: var(--radius-lg);
   padding: 40px;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--color-border);
+  width: 100%;
+}
+
+/* التعديل الجديد: حاوية الخريطة الاحترافية */
+.booking__map-container {
+  background: var(--color-white);
+  padding: 30px 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  text-align: right;
+}
+
+.booking__map-container h3 {
+  font-size: 1.2rem;
+  color: var(--color-primary);
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.booking__map-wrap {
+  width: 100%;
+  height: 350px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.booking__map-desc {
+  margin-top: 16px;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 .booking__steps {
@@ -72,6 +114,7 @@
   background: var(--color-cream);
   transition: all var(--transition);
   text-align: center;
+  cursor: pointer;
 }
 
 .booking__option:hover {
@@ -100,6 +143,7 @@
   border-radius: var(--radius-sm);
   background: var(--color-cream);
   transition: all var(--transition);
+  cursor: pointer;
 }
 
 .booking__date:hover {
@@ -141,6 +185,7 @@
   font-size: 0.9rem;
   background: var(--color-cream);
   transition: all var(--transition);
+  cursor: pointer;
 }
 
 .booking__time:hover {
@@ -281,6 +326,13 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+/* التجاوب والتوافق الفخم مع الشاشات المتنوعة */
+@media (max-width: 992px) {
+  .booking__main-grid {
+    grid-template-columns: 1fr; /* تنزل الخريطة تحت خطوات الحجز بسلاسة في التابلت والموبايل */
+  }
 }
 
 @media (max-width: 768px) {

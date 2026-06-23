@@ -1,14 +1,26 @@
+import React from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { messages, waLink } from '../utils/whatsapp';
 import './Services.css';
 
+import { 
+  FaScaleBalanced,     // برامج التخسيس
+  FaDumbbell,          // العلاج الطبيعي
+  FaBullseye,          // علاج السمنة والوزن الزائد
+  FaWandMagicSparkles, // التعديل الآمن: لجلسات LPG وتكسير الدهون ✨
+  FaBone,              // آلام الظهر والرقبة
+  FaPersonRunning,     // التأهيل بعد الإصابات
+  FaHeartPulse,        // خشونة المفاصل
+  FaUtensils,          // استشارات تغذية
+  FaPersonBreastfeeding // برامج ما قبل وبعد الولادة
+} from 'react-icons/fa6';
 const PUB = process.env.PUBLIC_URL;
 
 const services = [
   {
     id: 'diet',
     img: PUB + '/images/s1.jpg',
-    icon: '⚖️',
+    icon: <FaScaleBalanced />,
     title: 'برامج التخسيس والتغذية العلاجية',
     desc: 'خطط غذائية علمية مخصصة مع متابعة دورية لتحقيق وزن مثالي صحي.',
     messageKey: 'diet',
@@ -16,7 +28,7 @@ const services = [
   {
     id: 'physio',
     img: PUB + '/images/s2.jpg',
-    icon: '💪',
+    icon: <FaDumbbell />,
     title: 'العلاج الطبيعي والتأهيل',
     desc: 'جلسات علاج طبيعي متخصصة للتأهيل بعد الإصابات والعمليات الجراحية.',
     messageKey: 'physio',
@@ -24,7 +36,7 @@ const services = [
   {
     id: 'obesity',
     img: PUB + '/images/s3.jpg',
-    icon: '🎯',
+    icon: <FaBullseye />,
     title: 'علاج السمنة والوزن الزائد',
     desc: 'برامج متكاملة لعلاج السمنة باستخدام أحدث البروتوكولات الطبية.',
     messageKey: 'diet',
@@ -32,7 +44,7 @@ const services = [
   {
     id: 'lpg',
     img: PUB + '/images/s4.jpg',
-    icon: '✨',
+    icon: <FaWandMagicSparkles />,
     title: 'جلسات LPG / تكسير الدهون',
     desc: 'تقنية LPG المتقدمة لتكسير الدهون ونحت الجسم بدون جراحة.',
     messageKey: 'lpg',
@@ -40,7 +52,7 @@ const services = [
   {
     id: 'back',
     img: PUB + '/images/s5.jpg',
-    icon: '🦴',
+    icon: <FaBone />,
     title: 'علاج آلام الظهر والرقبة',
     desc: 'علاج متخصص لآلام العمود الفقري والرقبة بأحدث التقنيات.',
     messageKey: 'physio',
@@ -48,7 +60,7 @@ const services = [
   {
     id: 'rehab',
     img: PUB + '/images/s6.jpg',
-    icon: '🏃',
+    icon: <FaPersonRunning />,
     title: 'التأهيل بعد الإصابات',
     desc: 'برامج تأهيل شاملة للعودة للحياة الطبيعية بعد الإصابات.',
     messageKey: 'physio',
@@ -56,7 +68,7 @@ const services = [
   {
     id: 'joints',
     img: PUB + '/images/s7.jpg',
-    icon: '🦵',
+    icon: <FaHeartPulse />,
     title: 'علاج خشونة المفاصل',
     desc: 'علاج فعّال لخشونة المفاصل وتخفيف الألم وتحسين الحركة.',
     messageKey: 'physio',
@@ -64,7 +76,7 @@ const services = [
   {
     id: 'nutrition',
     img: PUB + '/images/s8.jpg',
-    icon: '🥗',
+    icon: <FaUtensils />,
     title: 'استشارات تغذية ومتابعة',
     desc: 'استشارات غذائية دورية مع خطط متابعة شخصية لكل مريض.',
     messageKey: 'diet',
@@ -72,7 +84,7 @@ const services = [
   {
     id: 'pregnancy',
     img: PUB + '/images/s9.jpg',
-    icon: '🤰',
+    icon: <FaPersonBreastfeeding />,
     title: 'برامج ما قبل وبعد الولادة',
     desc: 'برامج متخصصة للحفاظ على وزن صحي قبل وبعد الولادة.',
     messageKey: 'diet',
@@ -104,8 +116,10 @@ function Services() {
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
               </div>
-              <div style={{ padding: '16px' }}>
-                <span className="services__icon">{service.icon}</span>
+              <div style={{ padding: '16px', position: 'relative' }}>
+                <span className="services__icon">
+                  {service.icon}
+                </span>
                 <h3 className="services__title">{service.title}</h3>
                 <p className="services__desc">{service.desc}</p>
                 <a

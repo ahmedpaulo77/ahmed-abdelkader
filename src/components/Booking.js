@@ -134,152 +134,178 @@ function Booking() {
           </p>
         </div>
 
-        <div ref={ref} className="booking__wrapper fade-in">
-          <div className="booking__steps">
-            {[1, 2, 3, 4, 5].map((s) => (
-              <div
-                key={s}
-                className={`booking__step-indicator ${step >= s ? 'booking__step-indicator--active' : ''} ${step > s ? 'booking__step-indicator--done' : ''}`}
-              >
-                <span>{step > s ? '✓' : s}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="booking__content">
-            {step === 1 && (
-              <div className="booking__panel">
-                <h3>اختر الفرع</h3>
-                <div className="booking__options">
-                  {branches.map((b) => (
-                    <button
-                      key={b.id}
-                      className={`booking__option ${branch === b.id ? 'booking__option--selected' : ''}`}
-                      onClick={() => setBranch(b.id)}
-                    >
-                      📍 {b.name}
-                    </button>
-                  ))}
+        {/* شبكة العرض الرئيسية لتقسيم الحجز والخريطة جنب بعض */}
+        <div ref={ref} className="booking__main-grid fade-in">
+          
+          {/* صندوق خطوات فورم الحجز */}
+          <div className="booking__wrapper">
+            <div className="booking__steps">
+              {[1, 2, 3, 4, 5].map((s) => (
+                <div
+                  key={s}
+                  className={`booking__step-indicator ${step >= s ? 'booking__step-indicator--active' : ''} ${step > s ? 'booking__step-indicator--done' : ''}`}
+                >
+                  <span>{step > s ? '✓' : s}</span>
                 </div>
-              </div>
-            )}
-
-            {step === 2 && (
-              <div className="booking__panel">
-                <h3>اختر الخدمة</h3>
-                <div className="booking__options booking__options--grid">
-                  {services.map((s) => (
-                    <button
-                      key={s}
-                      className={`booking__option ${service === s ? 'booking__option--selected' : ''}`}
-                      onClick={() => setService(s)}
-                    >
-                      {s}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {step === 3 && (
-              <div className="booking__panel">
-                <h3>اختر التاريخ</h3>
-                <div className="booking__calendar">
-                  {availableDates.slice(0, 14).map((d) => {
-                    const key = d.toISOString();
-                    const isSelected = date && d.toDateString() === date.toDateString();
-                    return (
-                      <button
-                        key={key}
-                        className={`booking__date ${isSelected ? 'booking__date--selected' : ''}`}
-                        onClick={() => setDate(d)}
-                      >
-                        <span className="booking__date-day">
-                          {d.toLocaleDateString('ar-EG', { weekday: 'short' })}
-                        </span>
-                        <span className="booking__date-num">{d.getDate()}</span>
-                        <span className="booking__date-month">
-                          {d.toLocaleDateString('ar-EG', { month: 'short' })}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
-            {step === 4 && (
-              <div className="booking__panel">
-                <h3>اختر الوقت</h3>
-                <div className="booking__times">
-                  {timeSlots.map((t) => (
-                    <button
-                      key={t}
-                      className={`booking__time ${time === t ? 'booking__time--selected' : ''}`}
-                      onClick={() => setTime(t)}
-                    >
-                      {t}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {step === 5 && (
-              <div className="booking__panel">
-                <h3>بياناتك</h3>
-                <form className="booking__form" onSubmit={handleConfirm}>
-                  <div className="booking__input-group">
-                    <label htmlFor="name">الاسم الكامل</label>
-                    <input
-                      id="name"
-                      type="text"
-                      placeholder="أدخل اسمك"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="booking__input-group">
-                    <label htmlFor="phone">رقم الموبايل</label>
-                    <input
-                      id="phone"
-                      type="tel"
-                      placeholder="01xxxxxxxxx"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="booking__summary">
-                    <h4>ملخص الحجز</h4>
-                    <p>📍 {branchName} · 💼 {service}</p>
-                    <p>📅 {date ? formatDate(date) : ''} · 🕐 {time}</p>
-                  </div>
-                  <button type="submit" className="btn btn-gold booking__confirm-btn">
-                    تأكيد الحجز
-                  </button>
-                </form>
-              </div>
-            )}
-          </div>
-
-          {step < 5 && (
-            <div className="booking__nav">
-              {step > 1 && (
-                <button className="btn btn-outline" onClick={() => setStep(step - 1)}>
-                  السابق
-                </button>
-              )}
-              <button
-                className="btn btn-primary"
-                disabled={!canProceed()}
-                onClick={() => setStep(step + 1)}
-              >
-                التالي
-              </button>
+              ))}
             </div>
-          )}
+
+            <div className="booking__content">
+              {step === 1 && (
+                <div className="booking__panel">
+                  <h3>اختر الفرع</h3>
+                  <div className="booking__options">
+                    {branches.map((b) => (
+                      <button
+                        key={b.id}
+                        className={`booking__option ${branch === b.id ? 'booking__option--selected' : ''}`}
+                        onClick={() => setBranch(b.id)}
+                      >
+                        📍 {b.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {step === 2 && (
+                <div className="booking__panel">
+                  <h3>اختر الخدمة</h3>
+                  <div className="booking__options booking__options--grid">
+                    {services.map((s) => (
+                      <button
+                        key={s}
+                        className={`booking__option ${service === s ? 'booking__option--selected' : ''}`}
+                        onClick={() => setService(s)}
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {step === 3 && (
+                <div className="booking__panel">
+                  <h3>اختر التاريخ</h3>
+                  <div className="booking__calendar">
+                    {availableDates.slice(0, 14).map((d) => {
+                      const key = d.toISOString();
+                      const isSelected = date && d.toDateString() === date.toDateString();
+                      return (
+                        <button
+                          key={key}
+                          className={`booking__date ${isSelected ? 'booking__date--selected' : ''}`}
+                          onClick={() => setDate(d)}
+                        >
+                          <span className="booking__date-day">
+                            {d.toLocaleDateString('ar-EG', { weekday: 'short' })}
+                          </span>
+                          <span className="booking__date-num">{d.getDate()}</span>
+                          <span className="booking__date-month">
+                            {d.toLocaleDateString('ar-EG', { month: 'short' })}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {step === 4 && (
+                <div className="booking__panel">
+                  <h3>اختر الوقت</h3>
+                  <div className="booking__times">
+                    {timeSlots.map((t) => (
+                      <button
+                        key={t}
+                        className={`booking__time ${time === t ? 'booking__time--selected' : ''}`}
+                        onClick={() => setTime(t)}
+                      >
+                        {t}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {step === 5 && (
+                <div className="booking__panel">
+                  <h3>بياناتك</h3>
+                  <form className="booking__form" onSubmit={handleConfirm}>
+                    <div className="booking__input-group">
+                      <label htmlFor="name">الاسم الكامل</label>
+                      <input
+                        id="name"
+                        type="text"
+                        placeholder="أدخل اسمك"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="booking__input-group">
+                      <label htmlFor="phone">رقم الموبايل</label>
+                      <input
+                        id="phone"
+                        type="tel"
+                        placeholder="01xxxxxxxxx"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="booking__summary">
+                      <h4>ملخص الحجز</h4>
+                      <p>📍 {branchName} · 💼 {service}</p>
+                      <p>📅 {date ? formatDate(date) : ''} · 🕐 {time}</p>
+                    </div>
+                    <button type="submit" className="btn btn-gold booking__confirm-btn">
+                      تأكيد الحجز
+                    </button>
+                  </form>
+                </div>
+              )}
+            </div>
+
+            {step < 5 && (
+              <div className="booking__nav">
+                {step > 1 && (
+                  <button className="btn btn-outline" onClick={() => setStep(step - 1)}>
+                    السابق
+                  </button>
+                )}
+                <button
+                  className="btn btn-primary"
+                  disabled={!canProceed()}
+                  onClick={() => setStep(step + 1)}
+                >
+                  التالي
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* صندوق خريطة موقع العيادة */}
+          <div className="booking__map-container">
+            <h3>📍 موقع فرع بنها الرئيسي</h3>
+            <div className="booking__map-wrap">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3439.4674062402283!2d31.183444!3d30.451111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14581006509f7a77%3A0x67db91c9447efd03!2z2KjZhtmH2KfYjCDZhdit2KfZgdi42Kkg2KfZhNmC2YTZ diplomat2KjZitip!5e0!3m2!1sar!2seg!4v1700000000000!5m2!1sar!2seg"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Hayah Clinic Banha Map"
+              ></iframe>
+            </div>
+            <p className="booking__map-desc">
+              شرفنا بزيارتك في الفرع الرئيسي: بنها، شارع الاستاد (بجوار مستشفى بنها الجامعي)، برج الأطباء، الدور الثالث.
+            </p>
+          </div>
+
         </div>
       </div>
     </section>

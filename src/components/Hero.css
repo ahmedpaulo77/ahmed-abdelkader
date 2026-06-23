@@ -26,13 +26,15 @@
   background: linear-gradient(180deg, var(--color-cream) 0%, rgba(250, 248, 245, 0.8) 100%);
 }
 
+/* التعديل الذكي هنا: دمج المحتوى بدون تقسيم حاد ليصبح عائم بالكامل فوق الباكجروند */
 .hero__content {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
   align-items: center;
+  width: 100%;
 }
 
 .hero__badge {
@@ -78,41 +80,12 @@
   margin-bottom: 48px;
 }
 
-.hero__trust {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding: 24px 0;
-  border-top: 1px solid var(--color-border);
-}
-
-.hero__trust-item {
-  display: flex;
-  flex-direction: column;
-}
-
-.hero__trust-item strong {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--color-primary);
-  line-height: 1;
-}
-
-.hero__trust-item span {
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
-  margin-top: 4px;
-}
-
-.hero__trust-divider {
-  width: 1px;
-  height: 40px;
-  background: var(--color-border);
-}
-
+/* تعديل مساحة وتمدد الصورة لتصبح فوق الباكجروند بانسيابية وبدون حواف حادة */
 .hero__visual {
   position: relative;
-  height: 480px;
+  height: 520px;
+  width: 100%;
+  z-index: 2;
 }
 
 .hero__card {
@@ -193,6 +166,7 @@
   50% { transform: translateY(-12px); }
 }
 
+/* الميديا كويري الأصلية كاملة بدون أي حذف */
 @media (max-width: 992px) {
   .hero__content {
     grid-template-columns: 1fr;
@@ -208,13 +182,9 @@
     justify-content: center;
   }
 
-  .hero__trust {
-    justify-content: center;
-  }
-
   .hero__visual {
-    height: 320px;
-    max-width: 400px;
+    height: 380px;
+    max-width: 500px;
     margin: 0 auto;
   }
 
@@ -229,15 +199,8 @@
     padding: 100px 0 60px;
   }
 
-  .hero__trust {
-    gap: 16px;
-  }
-
-  .hero__trust-item strong {
-    font-size: 1.4rem;
-  }
-
   .hero__visual {
-    display: none;
+    display: block;
+    height: 280px;
   }
 }
