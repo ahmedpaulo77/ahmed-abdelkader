@@ -19,13 +19,13 @@ const videos = [
   {
     id: 1,
     url: 'https://www.facebook.com/share/r/14o5Lp2R4um/',
-    title: 'د. أحمد مجدي — نصائح التخسيس الصحي',
+    title: 'د. أحمد محمد — نصائح التخسيس الصحي',
     thumb: PUB + '/images/1.jpg',
   },
   {
     id: 2,
     url: 'https://www.facebook.com/share/v/1BVhfPp1Bx/',
-    title: 'د. أحمد مجدي — العلاج الطبيعي والتأهيل',
+    title: 'د. أحمد محمد — العلاج الطبيعي والتأهيل',
     thumb: PUB + '/images/2.jpg',
   },
 ];
@@ -192,7 +192,7 @@ function Results() {
       <section className="section videos">
         <div className="container">
           <div ref={vidRef} className="section-header fade-in">
-            <span className="section-tag">من د. أحمد مجدي</span>
+            <span className="section-tag">من د. أحمد محمد</span>
             <h2 className="section-title">فيديوهات طبية</h2>
             <p className="section-subtitle">معلومات وتوعية صحية مباشرة من الدكتور</p>
           </div>

@@ -7,7 +7,7 @@ function getBMICategory(bmi) {
   if (bmi < 18.5) return { label: 'نقص وزن', color: '#3498db', advice: 'يُنصح باستشارة لتقييم حالتك الغذائية' };
   if (bmi < 25) return { label: 'وزن طبيعي', color: '#27ae60', advice: 'ممتاز! حافظ على نمط حياتك الصحي' };
   if (bmi < 30) return { label: 'زيادة وزن', color: '#f39c12', advice: 'يُنصح ببرنامج تخسيس مخصص' };
-  return { label: 'سمنة', color: '#e74c3c', advice: 'يُنصح باستشارة عاجلة مع د. أحمد مجدي' };
+  return { label: 'سمنة', color: '#e74c3c', advice: 'يُنصح باستشارة عاجلة مع د. أحمد محمد' };
 }
 
 function BMI() {

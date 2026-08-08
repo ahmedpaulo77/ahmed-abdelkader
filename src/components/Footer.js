@@ -14,7 +14,7 @@ function Footer() {
               <span className="footer__logo-icon">H</span>
               <div>
                 <strong>Hayah Clinic</strong>
-                <span>Dr. Ahmed Magdy</span>
+                <span>Dr. Ahmed Mohamed</span>
               </div>
             </div>
             <p className="footer__desc">
@@ -52,7 +52,7 @@ function Footer() {
             <h4>تابعنا</h4>
             <div className="footer__social-links" style={{ display: 'flex', gap: '12px', marginBottom: '16px' }}>
               <a
-                href="https://web.facebook.com/Elhayadietclinic/"
+                href="https://www.facebook.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer__social-btn"
@@ -61,7 +61,7 @@ function Footer() {
                 <FaFacebook size={18} /> Facebook
               </a>
               <a
-                href="https://www.instagram.com/reel/C-gQopPsY7N/"
+                href="https://www.instagram.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer__social-btn"
@@ -77,7 +77,7 @@ function Footer() {
         </div>
 
         <div className="footer__bottom">
-          <p>© {new Date().getFullYear()} Hayah Clinic - Dr. Ahmed Magdy. جميع الحقوق محفوظة.</p>
+          <p>© {new Date().getFullYear()} Hayah Clinic - Dr. Ahmed Mohamed. جميع الحقوق محفوظة.</p>
         </div>
       </div>
     </footer>

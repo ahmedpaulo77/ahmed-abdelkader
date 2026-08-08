@@ -37,7 +37,7 @@ function Navbar() {
           <span className="navbar__logo-icon">H</span>
           <div className="navbar__logo-text">
             <span className="navbar__logo-name">Hayah Clinic</span>
-            <span className="navbar__logo-sub">Dr. Ahmed Magdy</span>
+            <span className="navbar__logo-sub">Dr. Ahmed Mohamed</span>
           </div>
         </Link>
 

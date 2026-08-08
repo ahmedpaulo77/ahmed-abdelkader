@@ -16,7 +16,7 @@ function About() {
             <div className="about__image-frame">
               <img
                 src={doctorImg}
-                alt="د. أحمد مجدي"
+                alt="د. أحمد محمد"
                 style={{
                   width: '100%',
                   height: '100%',
@@ -35,7 +35,7 @@ function About() {
             <span className="section-tag">عن العيادة</span>
             <h2 className="section-title about__title">Hayah Clinic — رؤية صحية متكاملة</h2>
             <p className="about__text">
-              Hayah Clinic تحت إشراف د. أحمد مجدي، من أبرز المراكز المتخصصة في التخسيس
+              Hayah Clinic تحت إشراف د. أحمد محمد، من أبرز المراكز المتخصصة في التخسيس
               والعلاج الطبيعي في مصر. نقدم برامج علمية مبنية على أحدث الأبحاث الطبية،
               مع فريق متكامل وأجهزة حديثة في 3 فروع استراتيجية.
             </p>

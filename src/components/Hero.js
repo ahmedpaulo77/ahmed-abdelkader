@@ -40,7 +40,7 @@ function Hero() {
 
           <h1 className="hero__title">
             Hayah Clinic
-            <span className="hero__title-accent">د. أحمد مجدي</span>
+            <span className="hero__title-accent">د. أحمد محمد</span>
           </h1>
 
           <p className="hero__desc">
@@ -91,7 +91,7 @@ function Hero() {
         {/* ── Visual column ── */}
         <div className="hero__visual">
           <div className="hero__image-wrap">
-            <img src={clinicImg} alt="Hayah Clinic — د. أحمد مجدي" />
+            <img src={clinicImg} alt="Hayah Clinic — د. أحمد محمد" />
           </div>
 
           {/* Floating card 1 — rating */}
