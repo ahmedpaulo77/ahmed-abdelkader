@@ -1,0 +1,249 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 16px 0;
+  transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+  /* دايماً فيه خلفية داكنة خفيفة عشان الكلام يبان */
+  background: rgba(6, 35, 29, 0.55);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border-bottom: 1px solid rgba(200,151,58,0.08);
+}
+
+.navbar--scrolled {
+  background: rgba(6, 35, 29, 0.92);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  padding: 12px 0;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.35), 0 0 0 1px rgba(200,151,58,0.15);
+  border-bottom: 1px solid rgba(200,151,58,0.15);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar__logo-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: var(--color-gold);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.navbar__logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar__logo-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.navbar__logo-sub {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.55);
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.navbar__links a {
+  font-size: 0.93rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  transition: color var(--transition);
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.navbar__links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-gold), var(--color-gold-light));
+  border-radius: 2px;
+  transition: width 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+
+.navbar__links a:hover,
+.navbar__links a.active {
+  color: var(--color-gold-light);
+}
+
+.navbar__links a:hover::after,
+.navbar__links a.active::after {
+  width: 100%;
+}
+
+/* حاوية الأزرار التفاعلية */
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar__zoom-btn {
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.navbar__zoom-btn:hover {
+  background-color: #1a73e8 !important;
+  transform: translateY(-2px);
+}
+
+.navbar__cta {
+  padding: 10px 24px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* زرار الهمبرجر */
+.navbar__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer;
+  z-index: 10005 !important;
+}
+
+.navbar__burger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: #ffffff !important;
+  border-radius: 4px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar__burger--open span {
+  background-color: #c9a84c !important;
+}
+
+.navbar__burger--open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg) !important;
+}
+
+.navbar__burger--open span:nth-child(2) {
+  opacity: 0 !important;
+  transform: translateX(-10px) !important;
+}
+
+.navbar__burger--open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg) !important;
+}
+
+/* الشاشات المتوسطة والتابلت */
+@media (max-width: 992px) {
+  .navbar__burger {
+    display: flex !important;
+  }
+
+  .navbar__links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: rgba(10, 61, 50, 0.97);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 100px 32px 32px;
+    gap: 24px;
+    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.4);
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10000;
+  }
+
+  .navbar__links--open {
+    right: 0;
+  }
+
+  .navbar__links a {
+    font-size: 1.1rem;
+    width: 100%;
+    padding: 8px 0;
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* إخفاء زرار الحجز الأصلي خارج الـ actions */
+  .navbar__inner > .navbar__cta {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   حل مشكلة الموبايل الحقيقي وضيق المساحة (أقل من 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* إخفاء زرار احجز الآن الذهبي من الهيدر في الموبايل لمنع التكديس */
+  .navbar__actions .navbar__cta {
+    display: none !important;
+  }
+
+  /* ترتيب العناصر المتبقية (اللوجو، زووم، الهمبرجر) في سطر واحد بدون ما ينزلوا تحت */
+  .navbar__inner {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar {
+    padding: 10px 0;
+  }
+  
+  .navbar__logo-sub {
+    display: none;
+  }
+
+  .navbar__zoom-btn {
+    padding: 6px 12px !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+@media (max-width: 400px) {
+  /* إخفاء كلمة "زووم" والاكتفاء بالأيقونة في الشاشات الضيقة جداً جداً */
+  .navbar__zoom-btn span {
+    display: none !important;
+  }
+}

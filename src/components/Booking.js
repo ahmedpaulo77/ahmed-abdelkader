@@ -1,0 +1,375 @@
+import { useState, useEffect } from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
+import { messages, waLink } from '../utils/whatsapp';
+import { getBookedTimes, createBooking, toDateKey } from '../services/bookings';
+import './Booking.css';
+
+const branches = [
+  { id: 'banha', name: 'بنها' },
+  { id: 'tagamoa', name: 'التجمع الخامس' },
+  { id: 'zayed', name: 'الشيخ زايد' },
+];
+
+const services = [
+  'برنامج التخسيس',
+  'العلاج الطبيعي',
+  'جلسات LPG',
+  'استشارة تغذية',
+  'علاج آلام الظهر',
+  'تأهيل بعد إصابة',
+];
+
+const timeSlots = [
+  '9:00 ص', '10:00 ص', '11:00 ص', '12:00 م',
+  '1:00 م', '2:00 م', '3:00 م', '4:00 م',
+  '5:00 م', '6:00 م', '7:00 م', '8:00 م',
+];
+
+function getAvailableDates() {
+  const dates = [];
+  const today = new Date();
+  for (let i = 1; i <= 30; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    if (d.getDay() !== 5) {
+      dates.push(d);
+    }
+  }
+  return dates;
+}
+
+function formatDate(date) {
+  return date.toLocaleDateString('ar-EG', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+
+function Booking() {
+  const ref = useScrollReveal();
+  const [step, setStep] = useState(1);
+  const [branch, setBranch] = useState('');
+  const [service, setService] = useState('');
+  const [date, setDate] = useState(null);
+  const [time, setTime] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [confirmed, setConfirmed] = useState(false);
+  const [bookedTimes, setBookedTimes] = useState([]);
+  const [loadingTimes, setLoadingTimes] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const availableDates = getAvailableDates();
+  const branchName = branches.find((b) => b.id === branch)?.name || '';
+
+  // لما نوصل لخطوة اختيار الوقت، هات الأوقات المحجوزة فعلاً في الفرع واليوم دول
+  useEffect(() => {
+    if (step === 4 && branch && date) {
+      setLoadingTimes(true);
+      setErrorMsg('');
+      getBookedTimes(branch, toDateKey(date))
+        .then(setBookedTimes)
+        .catch((err) => {
+          console.error('getBookedTimes error:', err); // اطبع تفاصيل الخطأ الحقيقي في الكونسول للتشخيص
+          setErrorMsg('حصل خطأ في تحميل الأوقات المتاحة، حاول تاني');
+        })
+        .finally(() => setLoadingTimes(false));
+    }
+  }, [step, branch, date]);
+
+  const canProceed = () => {
+    switch (step) {
+      case 1: return !!branch;
+      case 2: return !!service;
+      case 3: return !!date;
+      case 4: return !!time;
+      case 5: return name.trim().length >= 2 && phone.trim().length >= 10;
+      default: return false;
+    }
+  };
+
+  const handleConfirm = async (e) => {
+    e.preventDefault();
+    if (!canProceed() || submitting) return;
+    setSubmitting(true);
+    setErrorMsg('');
+
+    const result = await createBooking({
+      branchId: branch,
+      branchName,
+      service,
+      date,
+      time,
+      name: name.trim(),
+      phone: phone.trim(),
+    }).catch((err) => {
+      console.error('Booking error:', err); // اطبع تفاصيل الخطأ الحقيقي في الكونسول للتشخيص
+      return { ok: false, reason: 'unknown' };
+    });
+
+    setSubmitting(false);
+
+    if (!result.ok) {
+      if (result.reason === 'slot_taken') {
+        setErrorMsg('للأسف الميعاد ده اتحجز لحظات قبلك، اختار وقت تاني');
+        setTime('');
+        setStep(4);
+      } else {
+        setErrorMsg('حصل خطأ في تأكيد الحجز، حاول تاني');
+      }
+      return;
+    }
+
+    setConfirmed(true);
+  };
+
+  const resetBooking = () => {
+    setStep(1);
+    setBranch('');
+    setService('');
+    setDate(null);
+    setTime('');
+    setName('');
+    setPhone('');
+    setConfirmed(false);
+  };
+
+  if (confirmed) {
+    const dateStr = formatDate(date);
+    return (
+      <section id="booking" className="section booking">
+        <div className="container">
+          <div className="booking__success">
+            <div className="booking__success-icon">✅</div>
+            <h2>تم الحجز بنجاح!</h2>
+            <p>شكراً {name}، تم تسجيل موعدك بنجاح</p>
+            <div className="booking__success-details">
+              <div><span>📍 الفرع:</span> {branchName}</div>
+              <div><span>💼 الخدمة:</span> {service}</div>
+              <div><span>📅 التاريخ:</span> {dateStr}</div>
+              <div><span>🕐 الوقت:</span> {time}</div>
+              <div><span>📱 الهاتف:</span> {phone}</div>
+            </div>
+            <div className="booking__success-actions">
+              <a
+                href={waLink(messages.booking(dateStr, time, branchName, service))}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-whatsapp"
+              >
+                أكّد عبر واتساب
+              </a>
+              <button className="btn btn-outline" onClick={resetBooking}>
+                حجز موعد آخر
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="booking" className="section booking">
+      <div className="container">
+        <div className="section-header">
+          <span className="section-tag">احجز موعد</span>
+          <h2 className="section-title">احجز استشارتك الآن</h2>
+          <p className="section-subtitle">
+            اختر الفرع والخدمة والموعد المناسب — خطوات بسيطة وسريعة
+          </p>
+        </div>
+
+        {/* شبكة العرض الرئيسية لتقسيم الحجز والخريطة جنب بعض */}
+        <div ref={ref} className="booking__main-grid fade-in">
+          
+          {/* صندوق خطوات فورم الحجز */}
+          <div className="booking__wrapper">
+            <div className="booking__steps">
+              {[1, 2, 3, 4, 5].map((s) => (
+                <div
+                  key={s}
+                  className={`booking__step-indicator ${step >= s ? 'booking__step-indicator--active' : ''} ${step > s ? 'booking__step-indicator--done' : ''}`}
+                >
+                  <span>{step > s ? '✓' : s}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="booking__content">
+              {step === 1 && (
+                <div className="booking__panel">
+                  <h3>اختر الفرع</h3>
+                  <div className="booking__options">
+                    {branches.map((b) => (
+                      <button
+                        key={b.id}
+                        className={`booking__option ${branch === b.id ? 'booking__option--selected' : ''}`}
+                        onClick={() => setBranch(b.id)}
+                      >
+                        📍 {b.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {step === 2 && (
+                <div className="booking__panel">
+                  <h3>اختر الخدمة</h3>
+                  <div className="booking__options booking__options--grid">
+                    {services.map((s) => (
+                      <button
+                        key={s}
+                        className={`booking__option ${service === s ? 'booking__option--selected' : ''}`}
+                        onClick={() => setService(s)}
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {step === 3 && (
+                <div className="booking__panel">
+                  <h3>اختر التاريخ</h3>
+                  <div className="booking__calendar">
+                    {availableDates.slice(0, 14).map((d) => {
+                      const key = d.toISOString();
+                      const isSelected = date && d.toDateString() === date.toDateString();
+                      return (
+                        <button
+                          key={key}
+                          className={`booking__date ${isSelected ? 'booking__date--selected' : ''}`}
+                          onClick={() => setDate(d)}
+                        >
+                          <span className="booking__date-day">
+                            {d.toLocaleDateString('ar-EG', { weekday: 'short' })}
+                          </span>
+                          <span className="booking__date-num">{d.getDate()}</span>
+                          <span className="booking__date-month">
+                            {d.toLocaleDateString('ar-EG', { month: 'short' })}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {step === 4 && (
+                <div className="booking__panel">
+                  <h3>اختر الوقت</h3>
+                  {loadingTimes ? (
+                    <p className="booking__loading">جاري تحميل الأوقات المتاحة...</p>
+                  ) : (
+                    <div className="booking__times">
+                      {timeSlots.map((t) => {
+                        const isTaken = bookedTimes.includes(t);
+                        return (
+                          <button
+                            key={t}
+                            disabled={isTaken}
+                            className={`booking__time ${time === t ? 'booking__time--selected' : ''} ${isTaken ? 'booking__time--taken' : ''}`}
+                            onClick={() => setTime(t)}
+                            title={isTaken ? 'الميعاد ده محجوز' : ''}
+                          >
+                            {t}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                  {errorMsg && <p className="booking__error">{errorMsg}</p>}
+                </div>
+              )}
+
+              {step === 5 && (
+                <div className="booking__panel">
+                  <h3>بياناتك</h3>
+                  <form className="booking__form" onSubmit={handleConfirm}>
+                    <div className="booking__input-group">
+                      <label htmlFor="name">الاسم الكامل</label>
+                      <input
+                        id="name"
+                        type="text"
+                        placeholder="أدخل اسمك"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="booking__input-group">
+                      <label htmlFor="phone">رقم الموبايل</label>
+                      <input
+                        id="phone"
+                        type="tel"
+                        placeholder="01xxxxxxxxx"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="booking__summary">
+                      <h4>ملخص الحجز</h4>
+                      <p>📍 {branchName} · 💼 {service}</p>
+                      <p>📅 {date ? formatDate(date) : ''} · 🕐 {time}</p>
+                    </div>
+                    {errorMsg && <p className="booking__error">{errorMsg}</p>}
+                    <button type="submit" className="btn btn-gold booking__confirm-btn" disabled={submitting}>
+                      {submitting ? 'جاري تأكيد الحجز...' : 'تأكيد الحجز'}
+                    </button>
+                  </form>
+                </div>
+              )}
+            </div>
+
+            {step < 5 && (
+              <div className="booking__nav">
+                {step > 1 && (
+                  <button className="btn btn-outline" onClick={() => setStep(step - 1)}>
+                    السابق
+                  </button>
+                )}
+                <button
+                  className="btn btn-primary"
+                  disabled={!canProceed()}
+                  onClick={() => setStep(step + 1)}
+                >
+                  التالي
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* صندوق خريطة موقع العيادة */}
+          <div className="booking__map-container">
+            <h3>📍 موقع فرع بنها الرئيسي</h3>
+            <div className="booking__map-wrap">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3439.4674062402283!2d31.183444!3d30.451111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14581006509f7a77%3A0x67db91c9447efd03!2z2KjZhtmH2KfYjCDZhdit2KfZgdi42Kkg2KfZhNmC2YTZ diplomat2KjZitip!5e0!3m2!1sar!2seg!4v1700000000000!5m2!1sar!2seg"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Hayah Clinic Banha Map"
+              ></iframe>
+            </div>
+            <p className="booking__map-desc">
+              شرفنا بزيارتك في الفرع الرئيسي: بنها، شارع الاستاد (بجوار مستشفى بنها الجامعي)، برج الأطباء، الدور الثالث.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default Booking;

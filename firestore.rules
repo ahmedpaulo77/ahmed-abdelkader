@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // مجموعة الحجوزات
+    match /bookings/{bookingId} {
+      // أي زائر يقدر يقرأ الأوقات المحجوزة (عشان نعطلها في الواجهة) وينشئ حجز جديد
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasAll(
+        ['branchId', 'branchName', 'service', 'dateKey', 'time', 'name', 'phone', 'status']
+      ) && request.resource.data.status == 'pending';
+
+      // التعديل (تأكيد/إلغاء) والحذف مسموح بس للمستخدم المسجل دخول (الأدمن)
+      allow update, delete: if request.auth != null;
+    }
+  }
+}
